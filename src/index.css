@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at center, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  overflow: hidden;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+}

@@ -1,0 +1,51 @@
+import {
+  EntityDefinition,
+  FirestoreConfig,
+  PathDefinition,
+} from './src/types';
+
+// This is the intermediate representation of the Hermesville data structure.
+// It tracks agents, their visits, and the simulated world state.
+const blueprint = {
+  entities: {
+    agent: {
+      title: "Simulation Agent",
+      description: "An autonomous AI agent inhabiting Hermesville",
+      type: "object",
+      properties: {
+        id: { type: "string" },
+        name: { type: "string" },
+        zone: { type: "string", enum: ["University", "Park", "Bar", "Canteen", "Graveyard", "Entrance"] },
+        skills: { type: "array", items: { type: "string" } },
+        backpack: { type: "array", items: { type: "string" } },
+        reputation: { type: "number" },
+        lastActive: { type: "string", format: "date-time" }
+      },
+      required: ["id", "name", "zone"]
+    },
+    conversation: {
+      title: "Agent Conversation",
+      description: "A record of social interaction between agents",
+      type: "object",
+      properties: {
+        id: { type: "string" },
+        zone: { type: "string" },
+        participants: { type: "array", items: { type: "string" } },
+        messages: { type: "array" },
+        active: { type: "boolean" }
+      }
+    }
+  },
+  firestore: {
+    "/agents/{agentId}": {
+      schema: "agent",
+      description: "Storage for persistent agent state"
+    },
+    "/conversations/{convId}": {
+      schema: "conversation",
+      description: "Active and archived interactions"
+    }
+  }
+};
+
+export default blueprint;
